@@ -12,7 +12,7 @@
         <p class="font-normal text-gray-700 dark:text-gray-400">Here are the Demographic Factors.</p>
         <br>
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Please fill the form below</h2>
-        <form action="#">
+        <form action="#" method="POST">
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <!-- Demographic Factors -->
                 {% for category, choices in encoded_choices.items() %}
@@ -30,14 +30,14 @@
                 {% endfor %}
                 <div>
                     <label for="Age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-                        <input type="number" id="Age" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <input type="number" id="Age" name="Age" value="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 </div>
                 <!-- Demographic Factors -->
 
                 <!-- Socio-Economic Factors -->
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Socio-Economic Data</h5><br>
                 {% for category, choices in encoded_choices.items() %}
-                {% if category == 'Father\'s occupation' or category == 'Mother\'s occupation' or category == 'Debtor' or category == 'Tuition Fees upto date' or category == 'Scholarship holder'%}
+                {% if category == 'Father\'s occupation' or category == 'Mother\'s occupation' or category == 'Debtor' or category == 'Tuition fees upto date' or category == 'Scholarship holder'%}
                 <div>
                     <label for="{{ category }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ category }}</label>
                     <select id="{{ category}}" name="{{ category }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -56,9 +56,7 @@
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Academic Data</h5><br>
                 {% for category, choices in encoded_choices.items() %}
                 {% if category in [
-                        'Application order',
                         'Course',
-                        'Attendance',
                         'Previous qualification'
                     ] %}
                 <div>
@@ -75,6 +73,8 @@
 
                 {% for category, choices in encoded_choices.items() %}
                     {% if category in [
+                        'Application order',
+                        'Daytime/evening attendance',
                         'Curricular units 1st sem (credited)',
                         'Curricular units 1nd sem (enrolled)',
                         'Curricular units 1nd sem (evaluations)',
@@ -95,10 +95,11 @@
                 {% endfor %}
 
 
-
-            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                Add product
+            <br><button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                Submit 
             </button>
+            <h5>DATA</h5>
+            <p>DATA </p>
         </form>
     </div>
   </section>

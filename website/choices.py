@@ -31,7 +31,7 @@ encoded_choices = {
         9853: 'Basic Education',
         9991: 'Management (evening attendance)'
     },
-    'Attendance': {
+    'Daytime/evening attendance': {
         1: 'Daytime',
         0: 'Evening'
     },
@@ -143,7 +143,7 @@ encoded_choices = {
         1: 'yes',
         0: 'no'
     },
-    'Tuition Fees upto date': {
+    'Tuition fees upto date': {
         1: 'yes',
         0: 'no'
     },
