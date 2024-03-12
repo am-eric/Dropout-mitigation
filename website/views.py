@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
 from website.choices import encoded_choices
 import pandas as pd
@@ -11,7 +11,9 @@ views = Blueprint('views', __name__)
 # loading the pre-trained model
 model = pickle.load(open('XGBOOST.pkl',  "rb"))
 
-
+# Function to convert grade to Portuguese scale
+def convert_grade_to_portuguese_scale(grade, min_grade, max_grade):
+    return ((grade - min_grade) / (max_grade - min_grade)) * 10 + 10
 
 @views.route('/')
 @login_required
@@ -42,12 +44,24 @@ def get_started():
         data['Curricular units 1nd sem (enrolled)'] = int(request.form.get('Curricular units 1nd sem (enrolled)', ))
         data['Curricular units 1nd sem (evaluations)'] = int(request.form.get('Curricular units 1nd sem (evaluations)', ))
         data['Curricular units 1nd sem (approved)'] = int(request.form.get('Curricular units 1nd sem (approved)', ))
-        data['Curricular units 1nd sem (grade)'] = float(request.form.get('Curricular units 1nd sem (grade)', ))
+        # Convert grade to Portuguese scale
+        grade = float(request.form.get('Curricular units 1nd sem (grade)', 0))
+        min_grade = 0  # Minimum passing grade in the foreign classification scale
+        max_grade = 100  # Highest mark in the foreign classification scale
+
+        converted_grade = convert_grade_to_portuguese_scale(grade, min_grade, max_grade)
+        data['Curricular units 1nd sem (grade)'] = converted_grade
+
         data['Curricular units 2st sem (credited)'] = int(request.form.get('Curricular units 2st sem (credited)', ))
         data['Curricular units 2nd sem (enrolled)'] = int(request.form.get('Curricular units 2nd sem (enrolled)', ))
         data['Curricular units 2nd sem (evaluations)'] = int(request.form.get('Curricular units 2nd sem (evaluations)', ))
         data['Curricular units 2nd sem (approved)'] = int(request.form.get('Curricular units 2nd sem (approved)', ))
-        data['Curricular units 2nd sem (grade)'] = float(request.form.get('Curricular units 2nd sem (grade)', ))
+        grade = float(request.form.get('Curricular units 2nd sem (grade)', ))
+        min_grade = 0  # Minimum passing grade in the foreign classification scale
+        max_grade = 100  # Highest mark in the foreign classification scale
+
+        converted_grade = convert_grade_to_portuguese_scale(grade, min_grade, max_grade)
+        data['Curricular units 2nd sem (grade)'] = converted_grade
         data['Curricular units 2nd sem (without evalutions)'] = int(request.form.get('Curricular units 2nd sem (without evalutions)', ))
 
         #print(data)
@@ -71,7 +85,7 @@ def get_started():
     predictions = model.predict(input_data)
     # Map the predicted values back to the original classes
     predicted_class = ['Dropout', 'Enrolled', 'Graduate'][int(predictions[0])]
-    print("Predicted class:", predicted_class)
+    flash(f"Predicted class: {predicted_class}")
     #predictions = model.predict(input_data)
     
         
