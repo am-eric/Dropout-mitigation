@@ -21,6 +21,8 @@ def home():
     return render_template("home.html", user=current_user)
 
 
+
+
 @views.route('/get-started', methods=['GET', 'POST'])
 @login_required
 def get_started():
@@ -77,15 +79,14 @@ def get_started():
 
 
     
-    
-    #get columns from model used in training.  
-    input_data.columns = model.feature_names_in_
+        #get columns from model used in training.  
+        input_data.columns = model.feature_names_in_
 
-    #Make predictions
-    predictions = model.predict(input_data)
-    # Map the predicted values back to the original classes
-    predicted_class = ['Dropout', 'Enrolled', 'Graduate'][int(predictions[0])]
-    flash(f"Predicted class: {predicted_class}")
+        #Make predictions
+        predictions = model.predict(input_data)
+        # Map the predicted values back to the original classes
+        predicted_class = ['Dropout', 'Enrolled', 'Graduate'][int(predictions[0])]
+        flash(f"Predicted class: {predicted_class}")
     #predictions = model.predict(input_data)
     
         
