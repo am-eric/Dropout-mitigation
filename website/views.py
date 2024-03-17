@@ -91,3 +91,10 @@ def get_started():
     
         
     return render_template("get_started.html", user=current_user, encoded_choices=encoded_choices, )
+
+
+@views.route('/support')
+@login_required
+def support():
+    return render_template("support.html", user=current_user)
+
