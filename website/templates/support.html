@@ -1,8 +1,140 @@
-{% extends "base.html" %}
-<title>{% block title %} HOME {% endblock %}</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Psychiatrist Bot</title>
+  <link rel="shortcut icon" href="static/img/mhcicon.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/botstyle.css') }}">
+  <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+   <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
 
-{% block content %}
+   <!--font-family-->
+   <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+   
+   <!-- title of site -->
+   <title>{% block title %} HOME {% endblock %}</title>
 
+   <!-- For favicon png -->
+   <link rel="shortcut icon" type="image/icon" href="{{url_for('static', filename='assets/logo/favicon.png') }}"/>
+  
+   <!--font-awesome.min.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/font-awesome.min.css')}}">
 
+   <!--linear icon css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/linearicons.css')}}">
 
-{% endblock %}
+   <!--animate.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/animate.css')}}">
+
+   <!--flaticon.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/flaticon.css')}}">
+
+   <!--slick.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/slick.css')}}">
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/slick-theme.css')}}">
+   
+   <!--bootstrap.min.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+   
+   <!-- bootsnav -->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootsnav.css')}}" >	
+   
+   <!--style.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+   
+   <!--responsive.css-->
+   <link rel="stylesheet" href="{{url_for('static', filename='assets/css/responsive.css')}}">
+   
+</head>
+<body>
+<!--header-top start -->
+<header id="header-top" class="header-top">
+    <ul>
+              <li>
+                  <div class="header-top-left">
+                      <ul>
+                          
+                          
+                          <li class="select-opt">
+                              <a href="#"><span class="lnr lnr-magnifier"></span></a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="head-responsive-right pull-right">
+                  <div class="header-top-right">
+                      <ul>
+              {% if current_user.is_authenticated %}
+
+              <li class="header-top-contact">
+                <a href="{{ url_for('views.home') }}"><span>Home</span></a>
+              </li>
+              <li class="header-top-contact">
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+              </li>
+              {% else %}
+              <li class="header-top-contact">
+                <a href="{{ url_for('auth.login') }}">Login</a>
+              </li>
+              <li class="header-top-contact">
+                <a href="{{ url_for('auth.sign_up') }}">Sign-up</a>
+              </li>
+              {% endif %}
+                  </div>
+              </li>
+          </ul>
+      </header>
+
+      <!--End Nav-->
+      <div class="title">
+        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{{url_for('static', filename='/src/images/school.jpg')}}" alt="">
+       <div>
+
+<div id="chatbot" class="main-card collapsed">
+  <button id="chatbot_toggle">
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+</svg>
+  </button>
+  <div class="main-title">
+    
+    <span>
+      <i class="fas fa-bug"></i> Psychiatrist Bot <i class="fas fa-bug"></i>
+
+    </span>
+
+  </div>
+  <!-- partial:index.partial.html -->
+
+  <main class="msger-chat">
+    <div class="msg left-msg">
+      <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+
+        <div class="msg-bubble">
+
+          <div class="msg-info">
+            <div class="msg-info-name"> Psychiatrist Bot</div>
+          
+            <div class="msg-info-time"><time id="clock"></time></div>
+          </div>
+
+          <div class="msg-text">
+            Welcome to Psychiatrist, a safe and supportive space where you can share your thoughts and feelings without fear of judgement.
+          </div>
+        </div>
+        
+      </div>
+    </main>
+    <form class="msger-inputarea">
+      <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
+      <button type="submit" class="msger-send-btn">Send</button>
+    </form>
+  <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
+  <script src="{{ url_for('static', filename='assets/js/bot.js') }}"></script>
+</body>
+</html>

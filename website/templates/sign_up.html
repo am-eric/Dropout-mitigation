@@ -1,37 +1,130 @@
-{% extends "base.html" %}
-<title>{% block title %} Sign Up {% endblock %}</title>
+<!doctype html>
+<html class="no-js" lang="en">
 
-{% block content %}
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
 
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+        <!-- title of site -->
+        <title>{% block title %} HOME {% endblock %}</title>
 
-<form class="max-w-sm mx-auto" method="post">
-    <div class="mb-5">
-        <h3>SIGN UP</h3>
-    </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-      <input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter email" required />
-    </div>
-    <div class="mb-5">
-        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-        <input type="text" id="first_name" name="first_name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter firstname" required />
+        <!-- For favicon png -->
+		<link rel="shortcut icon" type="image/icon" href="{{url_for('static', filename='assets/logo/favicon.png') }}"/>
+       
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/font-awesome.min.css')}}">
+
+        <!--linear icon css-->
+		<link rel="stylesheet" href="{{url_for('static', filename='assets/css/linearicons.css')}}">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/animate.css')}}">
+
+		<!--flaticon.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/flaticon.css')}}">
+
+		<!--slick.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/slick.css')}}">
+		<link rel="stylesheet" href="{{url_for('static', filename='assets/css/slick-theme.css')}}">
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootsnav.css')}}" >	
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/responsive.css')}}">
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+	
+	<body>
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+		
+		<!--header-top start -->
+		<header id="header-top" class="header-top">
+      <ul>
+				<li>
+					<div class="header-top-left">
+						<ul>
+							
+							
+							<li class="select-opt">
+								<a href="#"><span class="lnr lnr-magnifier"></span></a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="head-responsive-right pull-right">
+					<div class="header-top-right">
+						<ul>
+                {% if current_user.is_authenticated %}
+
+                <li class="header-top-contact">
+                  <a href="{{ url_for('views.home') }}"><span>Home</span></a>
+                </li>
+                <li class="header-top-contact">
+                  <a href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                {% else %}
+                <li class="header-top-contact">
+                  <a href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="header-top-contact">
+                  <a href="{{ url_for('auth.sign_up') }}">Sign-up</a>
+                </li>
+                {% endif %}
+					</div>
+				</li>
+			</ul>
+		</header>
+
+    <section class="bg-white bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')] py-12">
+    <form class="max-w-sm mx-auto" method="post">
+      <div class="mb-5 text-center">
+          <h3>SIGN UP</h3>
       </div>
-    <div class="mb-5">
-      <label for="password1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-      <input type="password" id="password1" name="password1" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="password" required />
-    </div>
-    <div class="mb-5">
-      <label for="password2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat password</label>
-      <input type="password" id="password2" name="password2" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Confirm password" required />
-    </div>
-    <div class="flex items-start mb-5">
-      <div class="flex items-center h-5">
-        <input id="terms" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+      <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{{url_for('static', filename='/src/images/school.jpg')}}" alt="">
+      <div class="mb-5">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+        <input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter email" required />
       </div>
-      <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>
-    </div>
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register new account</button>
-  </form>
+      <div class="mb-5">
+          <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+          <input type="text" id="first_name" name="first_name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter firstname" required />
+        </div>
+      <div class="mb-5">
+        <label for="password1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+        <input type="password" id="password1" name="password1" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="password" required />
+      </div>
+      <div class="mb-5">
+        <label for="password2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat password</label>
+        <input type="password" id="password2" name="password2" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Confirm password" required />
+      </div>
+      
+      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register new account</button>
+    </form>
+    </section>
+  </body>
+</html>
   
-
-{% endblock %}

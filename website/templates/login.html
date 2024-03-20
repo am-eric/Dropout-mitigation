@@ -1,21 +1,126 @@
-{% extends "base.html" %}
-<title>{% block title %} Login {% endblock %}</title>
+<!doctype html>
+<html class="no-js" lang="en">
 
-{% block content %}
-<section class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
-<form class="max-w-sm mx-auto" method="POST">
-    <div class="mb-5">
-        <h3>LOGIN</h3>
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+
+        <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+        <!-- title of site -->
+        <title>{% block title %} HOME {% endblock %}</title>
+
+        <!-- For favicon png -->
+		<link rel="shortcut icon" type="image/icon" href="{{url_for('static', filename='assets/logo/favicon.png') }}"/>
+       
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/font-awesome.min.css')}}">
+
+        <!--linear icon css-->
+		<link rel="stylesheet" href="{{url_for('static', filename='assets/css/linearicons.css')}}">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/animate.css')}}">
+
+		<!--flaticon.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/flaticon.css')}}">
+
+		<!--slick.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/slick.css')}}">
+		<link rel="stylesheet" href="{{url_for('static', filename='assets/css/slick-theme.css')}}">
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootsnav.css')}}" >	
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="{{url_for('static', filename='assets/css/responsive.css')}}">
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+	
+	<body>
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+		
+		<!--header-top start -->
+		<header id="header-top" class="header-top">
+      <ul>
+				<li>
+					<div class="header-top-left">
+						<ul>
+							
+							
+							<li class="select-opt">
+								<a href="#"><span class="lnr lnr-magnifier"></span></a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="head-responsive-right pull-right">
+					<div class="header-top-right">
+						<ul>
+                {% if current_user.is_authenticated %}
+
+                <li class="header-top-contact">
+                  <a href="{{ url_for('views.home') }}"><span>Home</span></a>
+                </li>
+                <li class="header-top-contact">
+                  <a href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                {% else %}
+                <li class="header-top-contact">
+                  <a href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="header-top-contact">
+                  <a href="{{ url_for('auth.sign_up') }}">Sign-up</a>
+                </li>
+                {% endif %}
+					</div>
+				</li>
+			</ul>
+		</header>
+  
+<section class="bg-white bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')] py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-md mx-auto">
+      <form method="POST">
+        <div class="mb-5 text-center">
+          <h3>LOGIN</h3>
+      </div>
+        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{{url_for('static', filename='/src/images/school.jpg')}}" alt="">
+        <div class="mb-5">
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+          <input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter email" required />
+        </div>
+        <div class="mb-5">
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+          <input type="password" id="password" name="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="password" required /><br>
+        </div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+      </form>
     </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-      <input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter email" required />
-    </div>
-    <div class="mb-5">
-      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-      <input type="password" id="password" name="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="password" required />
-    </div>
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-  </form>
+  </div>
 </section>
-{% endblock%}
+
+  </body>
+</html>
+

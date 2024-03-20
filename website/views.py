@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
 from website.choices import encoded_choices
+from .chatbot import translate_text_eng_swa, translate_text_swa_eng,nlp,chatbot_response
+
 import pandas as pd
 # import joblib
 import pickle
@@ -88,6 +90,8 @@ def get_started():
         predicted_class = ['Dropout', 'Enrolled', 'Graduate'][int(predictions[0])]
         flash(f"Predicted class: {predicted_class}")
     #predictions = model.predict(input_data)
+        if predicted_class == 'Dropout':
+            return render_template("support.html", user=current_user)
     
         
     return render_template("get_started.html", user=current_user, encoded_choices=encoded_choices, )
@@ -98,3 +102,28 @@ def get_started():
 def support():
     return render_template("support.html", user=current_user)
 
+@views.route("/get")
+def get_bot_response():
+    userText = request.args.get('msg')
+    print("get_bot_response:- " + userText)
+
+    doc = nlp(userText)
+    detected_language = doc._.language['language']
+    print(f"Detected language get_bot_response:- {detected_language}")
+
+    bot_response_translate = "Loading bot response..........."  
+
+    if detected_language == "en":
+        bot_response_translate = userText  
+        print("en_sw get_bot_response:-", bot_response_translate)
+        
+    elif detected_language == 'sw':
+        bot_response_translate = translate_text_swa_eng(userText)  
+        print("sw_en get_bot_response:-", bot_response_translate)
+
+    chatbot_response_text = chatbot_response(bot_response_translate)
+
+    if detected_language == 'sw':
+        chatbot_response_text = translate_text_eng_swa(chatbot_response_text)
+
+    return chatbot_response_text
